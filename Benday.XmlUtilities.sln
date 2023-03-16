@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29025.244
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benday.XmlUtilities", "Benday.XmlUtilities\Benday.XmlUtilities.csproj", "{493ECDE4-27D0-4321-B3E3-F8818E763B6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2ED2002B-A672-472D-94CA-DBCBF1A46EF9}"
+	ProjectSection(SolutionItems) = preProject
+		bdc_mark_128_128.png = bdc_mark_128_128.png
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
