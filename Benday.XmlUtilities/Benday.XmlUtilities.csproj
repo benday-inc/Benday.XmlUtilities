@@ -1,7 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <Title>Benday.XmlUtilities</Title>
+        <Authors>benday</Authors>
+        <Copyright>2023</Copyright>
+        <PackageProjectUrl>https://github.com/benday-inc/Benday.XmlUtilities</PackageProjectUrl>
+        <PackageIcon>bdc_mark_128_128.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/benday-inc/Benday.XmlUtilities.git</RepositoryUrl>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <Version>$(VersionPrefix)4.0.0</Version>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\bdc_mark_128_128.png">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 
 </Project>

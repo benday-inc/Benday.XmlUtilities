@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benday.XmlUtilities", "Bend
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2ED2002B-A672-472D-94CA-DBCBF1A46EF9}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		bdc_mark_128_128.png = bdc_mark_128_128.png
 		README.md = README.md
 	EndProjectSection
