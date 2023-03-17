@@ -11,8 +11,9 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/benday-inc/Benday.XmlUtilities.git</RepositoryUrl>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <Version>$(VersionPrefix)4.0.0</Version>
+        <Version>$(VersionPrefix)4.0.1</Version>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Description>A collection of classes and extension methods for working with XML in .NET Core.</Description>
     </PropertyGroup>
 
     <ItemGroup>
