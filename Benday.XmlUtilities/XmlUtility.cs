@@ -6,47 +6,6 @@ namespace Benday.XmlUtilities
 {
     public static class XmlUtility
     {
-        public static double GetAttributeValueAsDouble(XElement element, string attributeName)
-        {
-            var value = GetAttributeValue(element, attributeName);
-
-            if (String.IsNullOrEmpty(value) == true)
-            {
-                return (double)0;
-            }
-            else
-            {
-                double temp = default(double);
-
-                if (Double.TryParse(value, out temp) == true)
-                {
-                    return temp;
-                }
-                else
-                {
-                    return temp;
-                }
-            }
-        }
-
-        public static string GetAttributeValue(XElement element, string attributeName)
-        {
-            if (element == null)
-                throw new ArgumentNullException("fromValue", "fromValue is null.");
-            if (String.IsNullOrEmpty(attributeName))
-                throw new ArgumentException("attributeName is null or empty.", "attributeName");
-
-
-            if (element.Attribute(attributeName) != null)
-            {
-                return element.Attribute(attributeName).Value;
-            }
-            else
-            {
-                return String.Empty;
-            }
-        }
-
         public static void SetAttributeValue(XElement toValue, string name, double value)
         {
             SetAttributeValue(toValue, name, value.ToString());
@@ -55,20 +14,6 @@ namespace Benday.XmlUtilities
         public static void SetAttributeValue(XElement toValue, string name, string value)
         {
             toValue.SetAttributeValue(name, value);
-        }
-
-        public static string GetAttributeValue(XElement element, string attributeName, string defaultReturnValue)
-        {
-            if (element == null)
-                return defaultReturnValue;
-            else
-            {
-                var value = element.Attribute(attributeName);
-                if (value == null)
-                    return defaultReturnValue;
-                else
-                    return value.Value;
-            }
         }
 
         public static void SetChildElement(XElement parentElement,
