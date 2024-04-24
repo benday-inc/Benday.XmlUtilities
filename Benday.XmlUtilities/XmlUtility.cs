@@ -4,18 +4,39 @@ using System.Xml.Linq;
 
 namespace Benday.XmlUtilities
 {
+    /// <summary>
+    /// Provides utility methods for working with XML elements and documents.
+    /// </summary>
     public static class XmlUtility
     {
+        /// <summary>
+        /// Sets the value of an attribute in the specified XElement to the specified double value.
+        /// </summary>
+        /// <param name="toValue">The XElement to set the attribute value on.</param>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="value">The double value to set.</param>
         public static void SetAttributeValue(XElement toValue, string name, double value)
         {
             SetAttributeValue(toValue, name, value.ToString());
         }
 
+        /// <summary>
+        /// Sets the value of the specified attribute in the given XML element.
+        /// </summary>
+        /// <param name="toValue">The XML element to set the attribute value for.</param>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="value">The value to set for the attribute.</param>
         public static void SetAttributeValue(XElement toValue, string name, string value)
         {
             toValue.SetAttributeValue(name, value);
         }
 
+        /// <summary>
+        /// Sets the value of a child element with the specified name in the given parent element.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="childElementValue">The value to set for the child element.</param>
         public static void SetChildElement(XElement parentElement,
             string childElementName,
             double childElementValue)
@@ -24,6 +45,12 @@ namespace Benday.XmlUtilities
                 childElementValue.ToString());
         }
 
+        /// <summary>
+        /// Sets the value of a child element with the specified name in the given parent element.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="childElementValue">The value to set for the child element.</param>
         public static void SetChildElement(XElement parentElement,
             string childElementName,
             DateTime childElementValue)
@@ -32,6 +59,12 @@ namespace Benday.XmlUtilities
                 childElementValue.ToString());
         }
 
+        /// <summary>
+        /// Sets the value of a child element with the specified name in the given parent element.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="childElementValue">The value to set for the child element.</param>
         public static void SetChildElement(XElement parentElement, string childElementName, string childElementValue)
         {
             if (parentElement == null)
@@ -46,6 +79,12 @@ namespace Benday.XmlUtilities
             parentElement.SetElementValue(childElementName, childElementValue);
         }
 
+        /// <summary>
+        /// Gets the child element with the specified name from the parent element.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <returns>The child element with the specified name, or null if not found.</returns>
         public static XElement GetChildElement(XElement parentElement, string childElementName)
         {
             if (parentElement == null)
@@ -57,6 +96,14 @@ namespace Benday.XmlUtilities
             return childElement;
         }
 
+        /// <summary>
+        /// Gets the value of a child element from the specified parent element.
+        /// If the child element is not found, returns the specified default value.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="defaultReturnValue">The default value to return if the child element is not found.</param>
+        /// <returns>The value of the child element, or the default value if the child element is not found.</returns>
         public static string GetChildElementValue(XElement parentElement,
             string childElementName,
             string defaultReturnValue)
@@ -74,6 +121,13 @@ namespace Benday.XmlUtilities
                 return childElement.Value;
         }
 
+        /// <summary>
+        /// Gets the value of a child element as a <see cref="DateTime"/> from the specified parent element.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="defaultReturnValue">The default value to return if the child element is not found or cannot be parsed as a <see cref="DateTime"/>.</param>
+        /// <returns>The value of the child element as a <see cref="DateTime"/> if found and successfully parsed; otherwise, the default value.</returns>
         public static DateTime GetChildElementValue(XElement parentElement,
             string childElementName,
             DateTime defaultReturnValue)
@@ -102,6 +156,15 @@ namespace Benday.XmlUtilities
             }
         }
 
+        /// <summary>
+        /// Gets the value of a child element from the specified parent element.
+        /// If the child element is not found or its value cannot be parsed as an integer,
+        /// the default return value is returned.
+        /// </summary>
+        /// <param name="parentElement">The parent element.</param>
+        /// <param name="childElementName">The name of the child element.</param>
+        /// <param name="defaultReturnValue">The default return value.</param>
+        /// <returns>The value of the child element if found and parsed successfully; otherwise, the default return value.</returns>
         public static int GetChildElementValue(XElement parentElement,
             string childElementName,
             int defaultReturnValue)
@@ -130,6 +193,15 @@ namespace Benday.XmlUtilities
             }
         }
 
+        /// <summary>
+        /// Retrieves the value of a child element in an XML document based on the specified criteria.
+        /// </summary>
+        /// <param name="parentElement">The parent element in which to search for the child element.</param>
+        /// <param name="childElementName">The name of the child element to retrieve the value from.</param>
+        /// <param name="childAttributeName">The name of the attribute of the child element to match.</param>
+        /// <param name="childAttributeValue">The value of the attribute of the child element to match.</param>
+        /// <param name="defaultReturnValue">The default value to return if the child element is not found.</param>
+        /// <returns>The value of the child element if found; otherwise, the default value.</returns>
         public static string GetChildElementValue(XElement parentElement,
             string childElementName,
             string childAttributeName,
@@ -154,6 +226,11 @@ namespace Benday.XmlUtilities
                 return childElement.Value;
         }
 
+        /// <summary>
+        /// Converts a string representation of XML to an XDocument object.
+        /// </summary>
+        /// <param name="fromValue">The string representation of XML.</param>
+        /// <returns>An XDocument object representing the XML.</returns>
         public static XDocument StringToXDocument(string fromValue)
         {
             return XDocument.Parse(fromValue);
