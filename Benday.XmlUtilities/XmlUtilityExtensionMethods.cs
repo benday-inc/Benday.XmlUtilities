@@ -52,6 +52,23 @@ namespace Benday.XmlUtilities
             }
         }
 
+        public static XElement? DescendantByLocalName(
+            this XElement parent, string name)
+        {
+            if (parent == null)
+            {
+                return null;
+            }
+            else
+            {
+                var result = (from temp in parent.Descendants()
+                              where temp.Name.LocalName == name
+                              select temp).FirstOrDefault();
+
+                return result;
+            }
+        }
+
         /// <summary>
         /// Gets all child elements of the parent XElement that have the specified local name and attribute value.
         /// </summary>
