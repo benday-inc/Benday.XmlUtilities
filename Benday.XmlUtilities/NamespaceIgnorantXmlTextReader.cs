@@ -25,10 +25,10 @@ namespace Benday.XmlUtilities
         }
 
 
-        public override string NamespaceURI
-        {
-            get { return string.Empty; }
-        }
+        //public override string NamespaceURI
+        //{
+        //    get { return string.Empty; }
+        //}
 
         public override bool Read()
         {
@@ -61,10 +61,14 @@ namespace Benday.XmlUtilities
         {
             try
             {
+                Console.WriteLine($"Uri: {uri}");
+
                 return base.LookupPrefix(uri);
             }
             catch (Exception)
             {
+                Console.WriteLine($"ERROR -- Uri: {uri}");
+
                 throw;
             }
         }
@@ -73,12 +77,25 @@ namespace Benday.XmlUtilities
         {
             try
             {
-                
+                Console.WriteLine($"Prefix: {prefix}");
 
-                return base.LookupNamespace(prefix);
+                var hasNamespace = HasNamespace(prefix);
+
+                Console.WriteLine($"LookupNamespace.HasNamespace('{prefix}'): {hasNamespace}");
+
+                if (hasNamespace == false && string.IsNullOrEmpty(prefix) == false)
+                {
+                    this.AddNamespace(prefix, $"http://{Guid.NewGuid()}");
+                }
+
+                var returnValue = base.LookupNamespace(prefix);
+
+                return returnValue;
             }
             catch (Exception)
             {
+                Console.WriteLine($"ERROR -- Prefix: {prefix}");
+
                 throw;
             }
         }

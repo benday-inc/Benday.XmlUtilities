@@ -14,7 +14,7 @@ namespace Benday.XmlUtilities
         {
             // var doc = XDocument.Parse(xml);
 
-            // var xmlSurrounded = "<root>" + xml + "</root>";
+            xml = "<root>" + xml + "</root>";
 
             // var doc = LoadXmlIgnoringNamespaces(xmlSurrounded);
 
@@ -80,8 +80,21 @@ namespace Benday.XmlUtilities
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element:
-
-                        writer.WriteStartElement(reader.Name);
+                        if (reader.Name.Contains(':') == false)
+                        {
+                            writer.WriteStartElement(reader.Name);
+                        }
+                        else
+                        {
+                            writer.WriteStartElement(
+                                reader.Prefix, 
+                                reader.LocalName, 
+                                reader.NamespaceURI);
+                            //writer.WriteStartElement(reader.Prefix, 
+                            //    reader.LocalName, reader.Name);
+                        }
+                        
+                        // writer.WriteStartElement(reader.Name);
                         writer.WriteAttributes(reader, false);
                         if (reader.IsEmptyElement == true)
                         {
