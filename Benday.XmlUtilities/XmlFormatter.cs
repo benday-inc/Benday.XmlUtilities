@@ -10,60 +10,26 @@ namespace Benday.XmlUtilities
 
     public class XmlFormatter
     {
-        public string? Format(string xml)
+        public FormatXmlResponse Format(string xml)
         {
-            // var doc = XDocument.Parse(xml);
-
-            // xml = "<root>" + xml + "</root>";
-
-            // var doc = LoadXmlIgnoringNamespaces(xmlSurrounded);
-
-            var returnValue = BeautifyXmlUsingReader(xml, true);
-
-            return returnValue.ToString();
-
-            /*
-            var reader = new NamespaceIgnorantXmlTextReader(new StringReader(xml));
-
-            var outerXml = reader.ReadOuterXml();
-
-            var doc = XDocument.Load(reader);
-
-            var element = doc.Root;
-
-            return Format(element);
-            */
+            return BeautifyXmlUsingReader(xml, true);
         }
 
-        private string Format(XElement element)
+        public const string INDENT_CHARS = "    ";
+
+        private FormatXmlResponse BeautifyXmlUsingReader(string xmlToBeautify, bool indentAttributes)
         {
-            return element.ToString();
-        }
+            var returnValue = new FormatXmlResponse();
 
-        private XDocument LoadXmlIgnoringNamespaces(string xml)
-        {
-            using (StringReader stringReader = new StringReader(xml))
-            {
-                XmlReaderSettings settings = new XmlReaderSettings
-                {
-                    NameTable = new NameTable()
-                };
-                XmlNamespaceManager namespaceManager = new XmlNamespaceManager(settings.NameTable);
-                XmlParserContext context = new XmlParserContext(null, namespaceManager, null, XmlSpace.None);
-                XmlReader reader = XmlReader.Create(stringReader, settings, context);
+            returnValue.Original = xmlToBeautify;
+            
+            var beautifiedXml = new StringBuilder();
 
-                return XDocument.Load(reader);
-            }
-        }
-
-        private string BeautifyXmlUsingReader(string xmlToBeautify, bool indentAttributes)
-        {
-            StringBuilder beautifiedXml = new StringBuilder();
-
-            XmlWriterSettings settings = new XmlWriterSettings();
+            var settings = new XmlWriterSettings();
             settings.Indent = true;
-            settings.IndentChars = "     ";
+            settings.IndentChars = INDENT_CHARS;
             settings.NewLineOnAttributes = indentAttributes;
+            settings.OmitXmlDeclaration = true;
 
             var writer = XmlTextWriter.Create(new StringWriter(beautifiedXml), settings);
 
@@ -124,7 +90,9 @@ namespace Benday.XmlUtilities
 
             writer.Flush();
 
-            var returnValue = beautifiedXml.ToString();
+            returnValue.Formatted = beautifiedXml.ToString();
+
+            returnValue.CreatedNamespaces = reader.GetCreatedNamespaces();
 
             return returnValue;
         }

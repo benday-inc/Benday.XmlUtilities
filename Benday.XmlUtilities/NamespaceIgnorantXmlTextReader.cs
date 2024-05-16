@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -17,18 +18,28 @@ namespace Benday.XmlUtilities
         {
         }
 
+        private readonly XmlParserContext _Context;
+
         private NamespaceIgnorantXmlTextReader(
             Stream stream, XmlParserContext context) : 
-            base(stream, XmlNodeType.Document, context) { 
-        
-
+            base(stream, XmlNodeType.Document, context) 
+        {
+            _Context = context;
         }
 
+        public Dictionary<string, string> GetCreatedNamespaces()
+        {
+            var namespaceMgr = _Context.NamespaceManager as CustomXmlNamespaceManager;
 
-        //public override string NamespaceURI
-        //{
-        //    get { return string.Empty; }
-        //}
+            if (namespaceMgr == null)
+            {
+                return new Dictionary<string, string>();
+            }
+            else
+            {
+                return namespaceMgr.GetCreatedNamespaces();
+            }
+        }
 
         public override bool Read()
         {

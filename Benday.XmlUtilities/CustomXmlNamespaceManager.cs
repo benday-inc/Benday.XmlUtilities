@@ -33,18 +33,16 @@ namespace Benday.XmlUtilities
         {
             try
             {
-                Console.WriteLine($"Prefix: {prefix}");
-
                 var hasNamespace = HasNamespace(prefix);
-
-                Console.WriteLine($"LookupNamespace.HasNamespace('{prefix}'): {hasNamespace}");
 
                 if (hasNamespace == false && string.IsNullOrEmpty(prefix) == false)
                 {
                     if (_CreatedNamespaces.ContainsKey(prefix) == false)
                     {
-                        _CreatedNamespaces.Add(prefix, $"http://{Guid.NewGuid()}");
-                        AddNamespace(prefix, $"http://{Guid.NewGuid()}");
+                        var newNamespace = $"uri://{Guid.NewGuid()}";
+
+                        _CreatedNamespaces.Add(prefix, newNamespace);
+                        AddNamespace(prefix, newNamespace);
                     }
 
                     return _CreatedNamespaces[prefix];
@@ -58,10 +56,12 @@ namespace Benday.XmlUtilities
             }
             catch (Exception)
             {
-                Console.WriteLine($"ERROR -- Prefix: {prefix}");
-
                 throw;
             }
+        }
+        public Dictionary<string, string> GetCreatedNamespaces()
+        {
+            return new Dictionary<string, string>(_CreatedNamespaces);
         }
     }
 }
