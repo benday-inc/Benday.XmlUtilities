@@ -10,13 +10,16 @@
         <PackageIcon>bdc_mark_128_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/benday-inc/Benday.XmlUtilities.git</RepositoryUrl>
-        <AssemblyVersion>5.2.0.0</AssemblyVersion>
-        <Version>$(VersionPrefix)5.2.0</Version>
+        <AssemblyVersion>5.3.0.0</AssemblyVersion>
+        <Version>$(VersionPrefix)5.3.0</Version>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Description>A collection of classes and extension methods for working with XML in .NET Core.</Description>
         <Nullable>enable</Nullable>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReleaseNotes>v5.2 - Added DescendantByLocalName() extension method</PackageReleaseNotes>    
+        <PackageReleaseNotes>
+          v5.3 - Added XmlFormatter that handles formatting even when namespaces are not properly defined
+          v5.2 - Added DescendantByLocalName() extension method
+        </PackageReleaseNotes>    
     </PropertyGroup>
 
     <ItemGroup>

@@ -9,6 +9,7 @@ Key features:
 * Extension methods for querying atributes and elements by sibling attribute values
 * Extension methods for accessing attribute values
 * Simplified null checking when elements and attributes aren't there
+* XML formatting that's forgiving about missing namespace declarations
 
 ## Installation
 
