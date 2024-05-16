@@ -14,7 +14,7 @@ namespace Benday.XmlUtilities
         {
             // var doc = XDocument.Parse(xml);
 
-            xml = "<root>" + xml + "</root>";
+            // xml = "<root>" + xml + "</root>";
 
             // var doc = LoadXmlIgnoringNamespaces(xmlSurrounded);
 
