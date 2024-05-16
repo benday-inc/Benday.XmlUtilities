@@ -62,10 +62,12 @@ namespace Benday.XmlUtilities
                         
                         // writer.WriteStartElement(reader.Name);
                         writer.WriteAttributes(reader, false);
+
                         if (reader.IsEmptyElement == true)
                         {
                             writer.WriteEndElement();
                         }
+
                         break;
                     case XmlNodeType.CDATA:
                         writer.WriteCData(reader.Value);
@@ -77,7 +79,7 @@ namespace Benday.XmlUtilities
                         writer.WriteWhitespace(reader.Value);
                         break;
                     case XmlNodeType.Text:
-                        writer.WriteString(reader.Value);
+                        writer.WriteString(reader.Value);                        
                         break;
                     case XmlNodeType.EndElement:
                         writer.WriteEndElement();
