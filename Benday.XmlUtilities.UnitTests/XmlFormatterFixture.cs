@@ -4,6 +4,47 @@ namespace Benday.XmlUtilities.UnitTests;
 public class XmlFormatterFixture
 {
     [TestMethod]
+    public void FormatSimple()
+    {
+        // arrange
+        var formatter = new XmlFormatter();
+
+        var indent = XmlFormatter.INDENT_CHARS;
+
+        var xml = "<root><child1 attr1=\"value1\" attr2=\"value2\" />" +
+            "<child2 attr3=\"value3\" attr4=\"value4\" /></root>";
+
+        Console.WriteLine($"xml: {xml}");
+
+        string expected = "<root>" + Environment.NewLine +
+            indent + "<child1" + Environment.NewLine +
+            indent + indent + "attr1=\"value1\"" + Environment.NewLine +
+            indent + indent + "attr2=\"value2\" />" + Environment.NewLine +
+            indent + "<child2" + Environment.NewLine +
+            indent + indent + "attr3=\"value3\"" + Environment.NewLine +
+            indent + indent + "attr4=\"value4\" />" + Environment.NewLine +
+            "</root>";
+
+        // act
+        var actual = formatter.Format(xml);
+
+        // assert
+        Assert.AreEqual<int>(0, actual.CreatedNamespaces.Count, $"Should have created a namespace");
+
+        var expectedLines = expected.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+        var actualLines = actual.Formatted.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+        Assert.AreEqual<int>(expectedLines.Length, actualLines.Length, "Line count didn't match");
+
+        for (int i = 0; i < expectedLines.Length; i++)
+        {
+            Assert.AreEqual<string>(expectedLines[i], actualLines[i], $"Line {i} didn't match");
+        }
+
+        Assert.AreEqual(expected, actual.Formatted, "formatted xml didn't match expected");
+    }
+
+    [TestMethod]
     public void FormatIgnoresNamespaces()
     {
         // arrange
