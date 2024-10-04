@@ -190,6 +190,35 @@ public class XmlFormatterFixture
         StringAssert.StartsWith(result.Formatted, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
     }
 
+    [TestMethod]
+    public void FormatPowerPointDocPropsAppXml()
+    {
+        // arrange
+        var pathToFile = GetPathToSampleFile("doc-props-app.xml");
+        var xml = File.ReadAllText(pathToFile);
+
+        var sut = new XmlFormatter();
+
+        // act
+        var result = sut.Format(xml);
+
+        // assert
+        Assert.IsNotNull(result);
+
+        Console.WriteLine($"Formatted:");
+        Console.WriteLine(result.Formatted);
+
+        var formattedIsEmpty = string.IsNullOrWhiteSpace(result.Formatted);
+        var originalIsEmpty = string.IsNullOrWhiteSpace(result.Original);
+
+        Assert.IsFalse(formattedIsEmpty, "Formatted is empty");
+        Assert.IsFalse(originalIsEmpty, "Original is empty");
+
+        Assert.AreNotEqual(result.Original, result.Formatted, "Original and formatted should not be the same");
+
+        StringAssert.StartsWith(result.Formatted, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+    }
+
 
 
     protected string GetPathToSampleFile(string filename)

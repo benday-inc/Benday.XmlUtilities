@@ -24,7 +24,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 Written by Benjamin Day  
 Pluralsight Author | Microsoft MVP | Scrum.org Professional Scrum Trainer  
 https://www.benday.com  
+https://www.slidespeaker.ai
 info@benday.com 
+
+YouTube: https://www.youtube.com/@_benday
 
 *Got ideas for git repo sync features you'd like to see? Found a bug? 
 Let us know by submitting an [issue](https://github.com/benday-inc/Benday.XmlUtilities/issues)*. *Want to contribute? Submit a pull request.*

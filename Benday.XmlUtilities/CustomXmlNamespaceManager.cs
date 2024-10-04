@@ -33,6 +33,11 @@ namespace Benday.XmlUtilities
         {
             try
             {
+                if (prefix == "xmlns")
+                {
+                    return String.Empty;
+                }
+
                 var hasNamespace = HasNamespace(prefix);
 
                 if (hasNamespace == false && string.IsNullOrEmpty(prefix) == false)
