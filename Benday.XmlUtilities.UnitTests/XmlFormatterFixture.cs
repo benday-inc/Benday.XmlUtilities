@@ -160,4 +160,87 @@ public class XmlFormatterFixture
 
         Assert.AreEqual(expected, actual.Formatted, "formatted xml didn't match expected");
     }
+
+    [TestMethod]
+    public void FormatPowerPointContentTypesFile()
+    {
+        // arrange
+        var pathToFile = GetPathToSampleFile("content-types-from-pptx.xml");
+        var xml = File.ReadAllText(pathToFile);
+
+        var sut = new XmlFormatter();
+
+        // act
+        var result = sut.Format(xml);
+
+        // assert
+        Assert.IsNotNull(result);
+
+        Console.WriteLine($"Formatted:");
+        Console.WriteLine(result.Formatted);
+
+        var formattedIsEmpty = string.IsNullOrWhiteSpace(result.Formatted);
+        var originalIsEmpty = string.IsNullOrWhiteSpace(result.Original);
+
+        Assert.IsFalse(formattedIsEmpty, "Formatted is empty");
+        Assert.IsFalse(originalIsEmpty, "Original is empty");
+
+        Assert.AreNotEqual(result.Original, result.Formatted, "Original and formatted should not be the same");
+
+        StringAssert.StartsWith(result.Formatted, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+    }
+
+
+
+    protected string GetPathToSampleFile(string filename)
+    {
+        var pathToAssembly = GetType().Assembly.Location;
+
+        var dirToCheck = Path.GetDirectoryName(pathToAssembly);
+
+        Assert.IsNotNull(dirToCheck, "Assembly location was null.");
+
+        var sampleFilesDir = GetPathToSampleFileDir(dirToCheck);
+
+        Assert.IsNotNull(sampleFilesDir, "Sample files dir was null");
+
+        var pathToSamplePresentation = Path.Combine(sampleFilesDir, filename);
+
+        if (File.Exists(pathToSamplePresentation) == true)
+        {
+            Console.WriteLine($"Path to sample presentation: {pathToSamplePresentation}");
+            Console.WriteLine();
+            return pathToSamplePresentation;
+        }
+        else
+        {
+            Assert.Fail($"File '{pathToSamplePresentation}' doesn't exist.");
+            return string.Empty;
+        }
+    }
+
+    protected string? GetPathToSampleFileDir(string startingDir)
+    {
+        var dirToCheck = new DirectoryInfo(startingDir);
+
+        var sampleFilesDirName = "sample-files";
+
+        while (dirToCheck != null && dirToCheck.Exists == true)
+        {
+            var pathToSampleFiles = Path.Combine(dirToCheck.FullName, sampleFilesDirName);
+
+            var sampleFilesDir = new DirectoryInfo(pathToSampleFiles);
+
+            if (sampleFilesDir.Exists == true)
+            {
+                return sampleFilesDir.FullName;
+            }
+            else
+            {
+                dirToCheck = dirToCheck.Parent;
+            }
+        }
+
+        return null;
+    }
 }

@@ -19,19 +19,33 @@ namespace Benday.XmlUtilities
 
         private FormatXmlResponse BeautifyXmlUsingReader(string xmlToBeautify, bool indentAttributes)
         {
+            var omitXmlDeclaration = true;
+
+            if (xmlToBeautify.TrimStart().StartsWith("<?xml ") == true)
+            {
+                omitXmlDeclaration = false;
+            }
+
             var returnValue = new FormatXmlResponse();
 
             returnValue.Original = xmlToBeautify;
             
-            var beautifiedXml = new StringBuilder();
+            var beautifiedXml = new StringBuilder();            
 
-            var settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.IndentChars = INDENT_CHARS;
-            settings.NewLineOnAttributes = indentAttributes;
-            settings.OmitXmlDeclaration = true;
+            var settings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = INDENT_CHARS,
+                NewLineOnAttributes = indentAttributes,
+                OmitXmlDeclaration = omitXmlDeclaration,
+                Encoding = Encoding.UTF8
+            };
 
-            var writer = XmlTextWriter.Create(new StringWriter(beautifiedXml), settings);
+            Utf8StringWriter stringWriterInstance = new Utf8StringWriter(beautifiedXml);
+
+            var writer = XmlTextWriter.Create(
+                stringWriterInstance, 
+                settings);
 
             var byteArray = Encoding.UTF8.GetBytes(xmlToBeautify);
 
@@ -41,12 +55,21 @@ namespace Benday.XmlUtilities
 
             // var reader = new XmlTextReader(new StringReader(xmlToBeautify)); // { Namespaces = false });            
 
+            bool hasXmlDeclaration = false;
+
             while (reader.Read())
             {
                 switch (reader.NodeType)
                 {
+                    case XmlNodeType.XmlDeclaration:
+                        // write xml declaration
+                        writer.WriteStartDocument();
+                        hasXmlDeclaration = true;
+
+                        break;
                     case XmlNodeType.Element:
-                        if (reader.Name.Contains(':') == false)
+                        if (reader.Name.Contains(':') == false && 
+                            string.IsNullOrWhiteSpace(reader.NamespaceURI) == true)
                         {
                             writer.WriteStartElement(reader.Name);
                         }
@@ -87,7 +110,11 @@ namespace Benday.XmlUtilities
                     default:
                         break;
                 }
+            }
 
+            if (hasXmlDeclaration == true)
+            {
+                writer.WriteEndDocument();
             }
 
             writer.Flush();
